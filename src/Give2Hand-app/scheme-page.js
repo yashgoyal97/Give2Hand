@@ -95,6 +95,7 @@ class SchemePage extends PolymerElement {
                 </div>
             </main>
         </div>
+        <paper-toast id="toast1" text="Amount should be greater"></paper-toast>
         <iron-ajax id="ajax" handle-as="json" content-type="application/json" on-response="_handleresponse" on-error="_handleError"></iron-ajax>
     `;
     }
@@ -126,7 +127,12 @@ class SchemePage extends PolymerElement {
     }
 
     _handleAmountChange() {
-        this.$.taxBenefit.value = 0.05 * this.$.schemeAmount.value;
+        if (this.$.schemeAmount.value >= this.schemeObj.amount) {
+            this.$.taxBenefit.value = 0.05 * this.$.schemeAmount.value;
+        }
+        else{
+            this.$.toast1.open();
+        }
     }
 
     _selectedSchemeChanged(newVal) {
