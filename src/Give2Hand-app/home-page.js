@@ -47,7 +47,7 @@ class HomePage extends PolymerElement {
         }
         paper-card{
             height:290px;
-            width:320px;
+            width:350px;
             border-radius:2px;
             margin:20px;
             padding:10px;
@@ -91,7 +91,7 @@ class HomePage extends PolymerElement {
 
     connectedCallback(){
         super.connectedCallback();
-        this._makeAjaxCall(`${mockUrl}/schemes`,'get',null);
+        this._makeAjaxCall(`${baseUrl}/givetohand/schemes`,'get',null);
     }
 
     _handleResponse(event){

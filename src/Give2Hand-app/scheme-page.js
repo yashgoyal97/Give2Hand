@@ -117,7 +117,7 @@ class SchemePage extends PolymerElement {
 
     _selectedSchemeChanged(newVal){
         this.$.schemeName.value=newVal.schemeName;
-        this.$.schemeDescription.value=newVal.schemeDescription;
+        this.$.schemeDescription.value=newVal.description;
         this.$.schemeAmount.value=newVal.amount;
         this.$.taxBenefit.value=newVal.taxBenefit;
         this.imageUrl=newVal.imageUrl;
@@ -130,7 +130,7 @@ class SchemePage extends PolymerElement {
 
     _handleContinue(){
         let schemeData={schemeName:this.$.schemeName.value,schemeDescription:this.$.schemeDescription.value,amount:parseInt(this.$.schemeAmount.value),taxBenefit:parseInt(this.$.taxBenefit.value)};
-        console.log(schemeData);
+        this.dispatchEvent(new CustomEvent('send-scheme',{detail:{item:schemeData},bubbles:true,composed:true}));
     }
 
     /**
