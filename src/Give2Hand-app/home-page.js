@@ -66,7 +66,7 @@ class HomePage extends PolymerElement {
                 <div id='schemes'>
                     <template is="dom-repeat" items="{{schemes}}">
                         <paper-card  on-click="_handleViewSchemeDetails" image="{{item.imageUrl}}">
-                            <h2>Scheme Name: {{item.schemeName}}</h2>
+                            <h2>{{item.schemeName}}</h2>
                         </paper-card>
                     </template>
                 </div>

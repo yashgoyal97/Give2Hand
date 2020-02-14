@@ -82,7 +82,7 @@ class SchemePage extends PolymerElement {
                     <div id="schemeData">
                         <paper-input name='schemeName' id='schemeName' label="Scheme Name" readonly></paper-input>
                         <paper-input name='schemeDescription' id='schemeDescription' label="Scheme Description" readonly></paper-input>
-                        <paper-input name='schemeAmount' id='schemeAmount' type="number" readonly></paper-input>
+                        <paper-input name='schemeAmount' id='schemeAmount' label="Amount" type="number" readonly></paper-input>
                         <paper-input name='taxBenefit' id='taxBenefit' label="Tax Benefit" readonly></paper-input>
                     </div>
                 </div>
@@ -133,9 +133,6 @@ class SchemePage extends PolymerElement {
         this.dispatchEvent(new CustomEvent('send-scheme',{detail:{item:schemeData},bubbles:true,composed:true}));
     }
 
-    /**
-     *      * @param {*} event 
-     */
     _handleViewSchemeDetails(event){
         this.selectedScheme=event.model.item;
     }
