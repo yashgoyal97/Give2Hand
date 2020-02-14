@@ -24,12 +24,13 @@ class HomePage extends PolymerElement {
         }
         header{
             grid-area:header;
-            display:grid;
-            grid-template-rows:1fr;
-            grid-template-columns:1fr 1fr 1fr
-            grid-template-areas:"empty logo empty";
             background-color:rgba(0,50,255,0.6);
             color:white;
+            display:grid;
+            grid-template-rows:1fr;
+            grid-template-columns:1fr 1fr 1fr;
+            grid-template-areas:"empty logo admin";
+            padding:5px;
         }
         #logo{
             grid-area: logo;
@@ -57,10 +58,14 @@ class HomePage extends PolymerElement {
                 }
             }
         }
+        #goToAdminBtn{
+            grid-area:admin;
+        }
         </style>
         <div class="container">
             <header>
                 <div id="logo"><h2>Give2Hand<iron-icon icon="all-out"></iron-icon></h2></div>
+                <paper-button id="goToAdminBtn" on-click="_handleLoginButton">ADMIN LOGIN<iron-icon icon='account-box'></iron-icon></paper-button>
             </header>
             <main>
                 <div id='schemes'>
@@ -91,7 +96,12 @@ class HomePage extends PolymerElement {
 
     connectedCallback(){
         super.connectedCallback();
-        this._makeAjaxCall(`${baseUrl}/givetohand/schemes`,'get',null);
+        this._makeAjaxCall(`${mockUrl}/schemes`,'get',null);
+    }
+
+    _handleLoginButton(){
+        window.history.pushState({}, null, '#/login');
+        window.dispatchEvent(new CustomEvent('location-changed'));
     }
 
     _handleResponse(event){

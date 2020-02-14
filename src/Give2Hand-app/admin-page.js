@@ -68,35 +68,10 @@ class UserPage extends PolymerElement {
 <div class="container">
     <header>
         <div id="logo"><h2>Give2Hand<iron-icon icon="all-out"></iron-icon></h2></div>
-        <paper-button id="goToHomeBtn" on-click="_handleBack">HOMEPAGE<iron-icon icon='home'></iron-icon></paper-button>
+        <paper-button id="goToHomeBtn" on-click="_handleLogout">LOGOUT<iron-icon icon='settings-power'></iron-icon></paper-button>
     </header>
     <main>
-        <div id="body">
-            <div id="header">
-                <div>
-                    <h3> Scheme Name:{{schemeObj.schemeName}}</h3>
-                    <h3>Scheme Description:{{schemeObj.description}}</h3>
-                </div>
-                <div>
-                    <h3>Amount:{{schemeObj.amount}}</h3>
-                    <h3>Tax Benefits:{{schemeObj.taxBenefit}}</h3>
-                </div>
-            </div>
-            <div id="main">
-                <iron-form id="userForm">
-                    <form>
-                        <paper-input label="Name" required id="userName"></paper-input>
-                        <paper-input type="email" required id="userEmail" label="Email Id" required></paper-input>
-                        <paper-input label="Phone Number" allowed-pattern=[0-9] required id="contactNumber" minlength=10 maxlength=10></paper-input>
-                        <paper-input label="PAN Number" required id="panCard" minlength=10 maxlength=10 ></paper-input>
-                        <gold-cc-input label="Enter Card Details" name="cardNumber" id="cardNumber"></gold-cc-input>
-                        <paper-input label="CVV" id="cvv" allowed-pattern="[0-9]" minlength=3 maxlength=3></paper-input>
-                        <paper-input label="Expiry Date" id="expiryDate" type=date ></paper-input>
-                        <paper-button on-click="_handleDonate" raised>Make Payment</paper-button>
-                    </form>
-                </iron-form>
-            </div>
-        </div>
+        
     </main>
 </div>
 <iron-ajax id='ajax' handle-as='json' on-response='_handleResponse' on-error='_handleError' content-type='application/json'></iron-ajax>
@@ -115,6 +90,10 @@ class UserPage extends PolymerElement {
             }
         };
     }
+
+    // _handleLogout(){
+
+    // }
 
     /**
     * Function to validate the entries added

@@ -130,13 +130,14 @@ class SchemePage extends PolymerElement {
         if (this.$.schemeAmount.value >= this.schemeObj.amount) {
             this.$.taxBenefit.value = 0.05 * this.$.schemeAmount.value;
         }
-        else{
+        else {
             this.$.toast1.open();
         }
     }
 
     _selectedSchemeChanged(newVal) {
         this.schemeObj = newVal;
+        console.log(this.schemeObj);
         this.$.schemeAmount.value = newVal.amount;
         this.$.taxBenefit.value = newVal.taxBenefit;
         this.imageUrl = newVal.imageUrl;
@@ -148,8 +149,12 @@ class SchemePage extends PolymerElement {
     }
 
     _handleContinue() {
-        let schemeData = { schemeName: this.schemeObj.schemeName, schemeDescription: this.schemeObj.description.value, amount: parseInt(this.$.schemeAmount.value), taxBenefit: parseInt(this.$.taxBenefit.value) };
-        this.dispatchEvent(new CustomEvent('send-scheme', { detail: { item: schemeData }, bubbles: true, composed: true }));
+        if (this.$.schemeAmount.value >= this.schemeObj.amount) {
+            let schemeData = { schemeName: this.schemeObj.schemeName, description: this.schemeObj.description, amount: parseInt(this.$.schemeAmount.value), taxBenefit: parseInt(this.$.taxBenefit.value) };
+            this.dispatchEvent(new CustomEvent('send-scheme', { detail: { item: schemeData }, bubbles: true, composed: true }));
+            window.history.pushState({}, null, '#/user');
+            window.dispatchEvent(new CustomEvent('location-changed'));
+        }
     }
 
     _handleViewSchemeDetails(event) {
