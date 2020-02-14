@@ -4,6 +4,8 @@ import '@polymer/paper-card/paper-card.js';
 import '@polymer/paper-button/paper-button.js';
 import '@polymer/iron-ajax/iron-ajax.js';
 import '@polymer/paper-input/paper-input.js';
+import '@polymer/iron-form/iron-form.js';
+import '@polymer/paper-toast/paper-toast.js';
 
 
 /**
@@ -80,14 +82,18 @@ class SchemePage extends PolymerElement {
                     <img src="{{imageUrl}}">
                     </div>
                     <div id="schemeData">
-                        <paper-input name='schemeName' id='schemeName' label="Scheme Name" readonly></paper-input>
-                        <paper-input name='schemeDescription' id='schemeDescription' label="Scheme Description" readonly></paper-input>
-                        <paper-input name='schemeAmount' id='schemeAmount' label="Amount" type="number" readonly></paper-input>
-                        <paper-input name='taxBenefit' id='taxBenefit' label="Tax Benefit" readonly></paper-input>
+                        <h4>Scheme: {{schemeObj.schemeName}}</h4>
+                        <h4>Description: {{schemeObj.description}}</h4>
+                        <iron-form id='amountForm'>
+                            <form>
+                                <paper-input name='schemeAmount' id='schemeAmount' label="Amount" type="number" on-input='_handleAmountChange'></paper-input>
+                                <paper-input name='taxBenefit' id='taxBenefit' label="Tax Benefit" disabled></paper-input>
+                                <paper-button id="selectSchemeBtn" on-click="_handleContinue" raised>Donate</paper-button>
+                            </form>
+                        </iron-form>
                     </div>
                 </div>
             </main>
-            <paper-button id="selectSchemeBtn" on-click="_handleContinue" raised>Donate</paper-button>
         </div>
         <iron-ajax id="ajax" handle-as="json" content-type="application/json" on-response="_handleresponse" on-error="_handleError"></iron-ajax>
     `;
@@ -95,46 +101,58 @@ class SchemePage extends PolymerElement {
 
     static get properties() {
         return {
-            schemes:{
-                type:Array,
-                value:[]
+            schemes: {
+                type: Array,
+                value: []
             },
-            selectedScheme:{
-                type:Object,
-                value:this.selectedScheme,
-                observer:"_selectedSchemeChanged"
+            selectedScheme: {
+                type: Object,
+                value: this.selectedScheme,
+                observer: "_selectedSchemeChanged"
             },
-            imageUrl:{
-                type:String,
-                value:""
+            imageUrl: {
+                type: String,
+                value: ""
+            },
+            schemeObj: {
+                type: Object,
+                value: {}
             }
         };
     }
 
-    connectedCallback(){
+    connectedCallback() {
         super.connectedCallback();
     }
 
-    _selectedSchemeChanged(newVal){
-        this.$.schemeName.value=newVal.schemeName;
-        this.$.schemeDescription.value=newVal.description;
-        this.$.schemeAmount.value=newVal.amount;
-        this.$.taxBenefit.value=newVal.taxBenefit;
-        this.imageUrl=newVal.imageUrl;
+    // _handleAmountChange() {
+    //     if (this.$.schemeAmount.value < this.schemeObj.amount) {
+            
+    //     }
+    //     else{
+            
+    //     }
+    // }
+
+    _selectedSchemeChanged(newVal) {
+        this.schemeObj = newVal;
+        this.$.schemeAmount.value = newVal.amount;
+        this.$.taxBenefit.value = newVal.taxBenefit;
+        this.imageUrl = newVal.imageUrl;
     }
 
-    _handleBack(){
+    _handleBack() {
         window.history.pushState({}, null, '#/home');
         window.dispatchEvent(new CustomEvent('location-changed'));
     }
 
-    _handleContinue(){
-        let schemeData={schemeName:this.$.schemeName.value,schemeDescription:this.$.schemeDescription.value,amount:parseInt(this.$.schemeAmount.value),taxBenefit:parseInt(this.$.taxBenefit.value)};
-        this.dispatchEvent(new CustomEvent('send-scheme',{detail:{item:schemeData},bubbles:true,composed:true}));
+    _handleContinue() {
+        let schemeData = { schemeName: this.$.schemeName.value, schemeDescription: this.$.schemeDescription.value, amount: parseInt(this.$.schemeAmount.value), taxBenefit: parseInt(this.$.taxBenefit.value) };
+        this.dispatchEvent(new CustomEvent('send-scheme', { detail: { item: schemeData }, bubbles: true, composed: true }));
     }
 
-    _handleViewSchemeDetails(event){
-        this.selectedScheme=event.model.item;
+    _handleViewSchemeDetails(event) {
+        this.selectedScheme = event.model.item;
     }
 }
 
