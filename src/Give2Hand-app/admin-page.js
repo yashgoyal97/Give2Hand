@@ -12,7 +12,7 @@ import '@polymer/iron-icons/iron-icons.js';
 * @customElement
 * @polymer
 */
-class UserPage extends PolymerElement {
+class AdminPage extends PolymerElement {
     static get template() {
         return html`
 <style>
@@ -44,26 +44,6 @@ class UserPage extends PolymerElement {
     #goToHomeBtn{
         grid-area:homepage;
     }
-    #header {
-        display: flex;
-        flex-direction: row;
-        justify-content:space-around;
-    }
-    form{
-        display: flex;
-        flex-direction: column;
-    }
- 
-    #main{
-        margin:10px auto;
-        border:2px solid black;
-        border-radius:10px;
-        padding:10px;
-        width:50%;
-    }
-    paper-button{
-        margin:10px;
-    }
 </style>
 <div class="container">
     <header>
@@ -71,7 +51,7 @@ class UserPage extends PolymerElement {
         <paper-button id="goToHomeBtn" on-click="_handleLogout">LOGOUT<iron-icon icon='settings-power'></iron-icon></paper-button>
     </header>
     <main>
-        
+    <highcharts-chart type="pie" ></highcharts-chart>
     </main>
 </div>
 <iron-ajax id='ajax' handle-as='json' on-response='_handleResponse' on-error='_handleError' content-type='application/json'></iron-ajax>
@@ -91,9 +71,10 @@ class UserPage extends PolymerElement {
         };
     }
 
-    // _handleLogout(){
-
-    // }
+    _handleLogout(){
+        window.history.pushState({}, null, '#/home');
+        window.dispatchEvent(new CustomEvent('location-changed'));
+    }
 
     /**
     * Function to validate the entries added
@@ -105,11 +86,6 @@ class UserPage extends PolymerElement {
             console.log(userObj);
             this._makeAjax('http://10.117.189.106:9090/givetohand/donations', 'post', userObj);
         }
-    }
-
-    _handleBack() {
-        window.history.pushState({}, null, '#/home');
-        window.dispatchEvent(new CustomEvent('location-changed'));
     }
 
 
@@ -132,4 +108,4 @@ class UserPage extends PolymerElement {
     }
 }
 
-window.customElements.define('user-page', UserPage);
+window.customElements.define('admin-page', AdminPage);
