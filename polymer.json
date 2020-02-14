@@ -10,8 +10,12 @@
     "package.json"
   ],
   "fragments": [
+    "src/Give2Hand-app/admin-page.js",
+    "src/Give2Hand-app/login-page.js",
     "src/Give2Hand-app/home-page.js",
-    "src/Give2Hand-app/view404-page.js"
+    "src/Give2Hand-app/scheme-page.js",
+    "src/Give2Hand-app/user-page.js",
+    "src/Give2Hand-app/view404-page.js",
   ],
   "extraDependencies": [
     "manifest.json",
