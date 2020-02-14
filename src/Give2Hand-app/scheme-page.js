@@ -125,14 +125,9 @@ class SchemePage extends PolymerElement {
         super.connectedCallback();
     }
 
-    // _handleAmountChange() {
-    //     if (this.$.schemeAmount.value < this.schemeObj.amount) {
-            
-    //     }
-    //     else{
-            
-    //     }
-    // }
+    _handleAmountChange() {
+        this.$.taxBenefit.value = 0.05 * this.$.schemeAmount.value;
+    }
 
     _selectedSchemeChanged(newVal) {
         this.schemeObj = newVal;
