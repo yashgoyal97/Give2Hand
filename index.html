@@ -1,35 +1,40 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
-    <title>Give2Hand</title>
-    <meta name="description" content="Donation Application">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
-    <style>
-      body {
-        font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
-      }
-    </style>
+  <title>Give2Hand</title>
+  <meta name="description" content="Donation Application">
 
-    <script>
-      window.MyAppGlobals = { rootPath: '/' };
-      window.baseUrl = 'http://10.117.189.147:9090';
-    </script>   
+  <style>
+    body {
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+    }
+  </style>
 
-    <!-- See https://goo.gl/OOhYW5 -->
-    <link rel="manifest" href="manifest.json">
+  <script>
+    window.MyAppGlobals = { rootPath: '/' };
+    window.baseUrl = 'http://10.117.189.181:9090';
+    window.mockUrl = ' http://localhost:3000';
+  </script>
 
-    <script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+  <!-- See https://goo.gl/OOhYW5 -->
+  <link rel="manifest" href="manifest.json">
 
+  <script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
 
+  <script type="module" src="src/Give2Hand-app/donation-app.js" crossorigin></script>
 
+  <script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+  
+  <script type="module" src="/src/Give2Hand-app/donation-app.js" crossorigin></script>
 
-    <script type="module" src="/src/Give2Hand-app/donation-app.js" crossorigin></script>
+</head>
 
-  </head>
-  <body>
-    <donation-app></donation-app>
-  </body>
+<body>
+  <donation-app></donation-app>
+</body>
+
 </html>
