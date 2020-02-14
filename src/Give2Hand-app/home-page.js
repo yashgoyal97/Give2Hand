@@ -16,25 +16,26 @@ class HomePage extends PolymerElement {
         <style>
         .container{
             display:grid;
-            grid-template-rows:1fr 9fr 1fr;
+            grid-template-rows:80px auto;
             grid-template-columns:1fr;
-            grid-template-areas:"header" "main" "footer";
+            grid-template-areas:"header" "main";
             grid-gap:2px;
+           
         }
         header{
             grid-area:header;
-            border:2px solid;
             display:grid;
             grid-template-rows:1fr;
             grid-template-columns:1fr 1fr 1fr
             grid-template-areas:"empty logo empty";
+            background-color:rgba(0,50,255,0.6);
+            color:white;
         }
         #logo{
             grid-area: logo;
         }
         main{
             grid-area:main;
-            border:2px solid;
             display:flex;
             flex-direction:column;
         }
@@ -45,14 +46,16 @@ class HomePage extends PolymerElement {
             margin:20px 60px 20px 60px;
         }
         paper-card{
-            background-image:url('../../images/cardImage.jfif');
-            height:200px;
-            width:200px;
-            border-radius:5px;
-        }
-        footer{
-            grid-area:footer;
-            border:2px solid;
+            height:290px;
+            width:320px;
+            border-radius:2px;
+            margin:20px;
+            padding:10px;
+            --paper-card-header-image:{
+                height:220px;
+                width:320px;
+                }
+            }
         }
         </style>
         <div class="container">
@@ -62,18 +65,14 @@ class HomePage extends PolymerElement {
             <main>
                 <div id='schemes'>
                     <template is="dom-repeat" items="{{schemes}}">
-                        <paper-card>
-                            <paper-button on-click="_handleViewSchemeDetails">{{item.schemeName}}</paper-button>
+                        <paper-card  on-click="_handleViewSchemeDetails" image="{{item.imageUrl}}">
+                            <h2>Scheme Name: {{item.schemeName}}</h2>
                         </paper-card>
                     </template>
-                    <paper-card>
-                        <paper-button on-click="_handleViewSchemeDetails">CLOTHES</paper-button>
-                    </paper-card>
                 </div>
             </main>
-            <footer>Footer</footer>
         </div>
-        <iron-ajax id="ajax" handle-as="json" content-type="application/json" on-response="_handleresponse" on-error="_handleError"></iron-ajax>
+        <iron-ajax id="ajax" handle-as="json" content-type="application/json" on-response="_handleResponse" on-error="_handleError"></iron-ajax>
     `;
     }
 
@@ -82,13 +81,17 @@ class HomePage extends PolymerElement {
             schemes:{
                 type:Array,
                 value:[]
+            },
+            imageUrl:{
+                type:String,
+                value:""
             }
         };
     }
 
     connectedCallback(){
         super.connectedCallback();
-        this._makeAjaxCall(`${baseUrl}/givetwohand/schemes`,'get',null);
+        this._makeAjaxCall(`${mockUrl}/schemes`,'get',null);
     }
 
     _handleResponse(event){
@@ -102,6 +105,8 @@ class HomePage extends PolymerElement {
     _handleViewSchemeDetails(event){
         this.selectedScheme=event.model.item;
         this.dispatchEvent(new CustomEvent('display-scheme',{detail:{item:this.selectedScheme},bubbles:true,composed:true}));
+        window.history.pushState({}, null, '#/scheme');
+        window.dispatchEvent(new CustomEvent('location-changed'));
     }
 
     /**

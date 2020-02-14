@@ -1,0 +1,25 @@
+{
+  "schemes":[
+    {
+      "schemeName":"clothes",
+      "schemeDescription":"clothes",
+      "amount": 5000,
+      "taxBenefit": 500,
+      "imageUrl":"https://cdn5.vectorstock.com/i/1000x1000/06/94/clothing-donation-flat-poster-template-vector-25930694.jpg"
+    },
+    {
+      "schemeName":"food",
+      "schemeDescription":"food",
+      "amount": 5000,
+      "taxBenefit": 500,
+      "imageUrl":"https://media.istockphoto.com/photos/donation-box-with-food-picture-id856568670?k=6&m=856568670&s=612x612&w=0&h=YzgyhA1w3MdBpvfhLuOscw0-Z1mhs75hh2HtMRArbQA="
+    },
+    {
+      "schemeName":"bags",
+      "schemeDescription":"bags",
+      "amount": 5000,
+      "taxBenefit": 500,
+      "imageUrl":"https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSwkjoJWUfRyGp3QHPiP1XZFJGW41gmycKouMRgR4jL7yuGoCmI"
+    }
+  ]
+}

@@ -18,7 +18,7 @@ class Give2HandApp extends PolymerElement {
     <app-route route="{{route}}" pattern="[[rootPath]]:page" data="{{routeData}}" tail="{{subroute}}"></app-route>     
     <iron-pages selected="[[page]]" attr-for-selected="name" role="main">
       <home-page name="home"></home-page>
-      <scheme-page name="scheme"></scheme-page>
+      <scheme-page name="scheme" selected-scheme={{selectedScheme}}></scheme-page>
       <view404-page name='view404'></view404-page>
     </iron-pages>
     `;
@@ -32,7 +32,11 @@ class Give2HandApp extends PolymerElement {
         observer: '_pageChanged'
       },
       routeData: Object,
-      subroute: Object
+      subroute: Object,
+      selectedScheme:{
+        type:Object,
+        value:{}
+      }
     };
   }
 
@@ -54,6 +58,13 @@ class Give2HandApp extends PolymerElement {
     } else {
       this.page = 'view404';
     }
+  }
+
+  ready(){
+    super.ready();
+    this.addEventListener('display-scheme',function(event){
+      this.selectedScheme=event.detail.item;
+    });
   }
 
   /**
