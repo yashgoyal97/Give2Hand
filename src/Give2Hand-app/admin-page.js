@@ -5,6 +5,9 @@ import '@polymer/iron-form/iron-form.js';
 import '@polymer/iron-ajax/iron-ajax.js';
 import '@polymer/gold-cc-input/gold-cc-input.js';
 import '@polymer/iron-icons/iron-icons.js';
+import 'highcharts-chart/highcharts-chart.js';
+import '@polymer/paper-dialog/paper-dialog.js';
+import '@polymer/polymer/lib/elements/dom-repeat.js';
 
 
 
@@ -44,6 +47,9 @@ class AdminPage extends PolymerElement {
     #goToHomeBtn{
         grid-area:homepage;
     }
+    td{
+        padding:10px;
+    }
 </style>
 <div class="container">
     <header>
@@ -51,7 +57,34 @@ class AdminPage extends PolymerElement {
         <paper-button id="goToHomeBtn" on-click="_handleLogout">LOGOUT<iron-icon icon='settings-power'></iron-icon></paper-button>
     </header>
     <main>
-    <highcharts-chart type="pie" ></highcharts-chart>
+        <highcharts-chart type="pie" data="{{schemeData}}" on-click="_handleChart"></highcharts-chart>
+        <paper-dialog id='chartDialog'>
+            <table>
+                <thead>
+                    <tr>
+                        <td>Name</td>
+                        <td>Phone</td>
+                        <td>Email</td>
+                        <td>PAN</td>
+                        <td>Tax Benefit</td>
+                        <td>Payment Type</td>
+                        <td>Amount</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template is="dom-repeat" items="{{schemeTable}}">
+                        <tr>
+                            <td>{{item.userName}}</td>
+                            <td>{{item.phoneNumber}}</td>
+                            <td>{{item.mailAddress}}</td>
+                            <td>{{item.panNumber}}</td>
+                            <td>{{item.taxBenfit}}</td>
+                            <td>{{item.amount}}</td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </paper-dialog>
     </main>
 </div>
 <iron-ajax id='ajax' handle-as='json' on-response='_handleResponse' on-error='_handleError' content-type='application/json'></iron-ajax>
@@ -64,41 +97,74 @@ class AdminPage extends PolymerElement {
     static get properties() {
         return {
             schemeData: {
+                type: Array,
+                value: []
+            },
+            schemes: {
+                tyep: Array,
+                value: []
+            },
+            percentage: {
+                tyep: Array,
+                value: []
+            },
+            count: {
+                tyep: Array,
+                value: []
+            },
+            name: {
+                tyep: Array,
+                value: []
+            },
+            schemeDetail: {
                 type: Object,
-                value: this.schemeData,
-                observer: "_schemeDataChanged"
+                value: {}
+            },
+            schemeTable: {
+                type: Array,
+                value: []
             }
-        };
-    }
-
-    _handleLogout(){
-        window.history.pushState({}, null, '#/home');
-        window.dispatchEvent(new CustomEvent('location-changed'));
-    }
-
-    /**
-    * Function to validate the entries added
-    * object is posted only after all the validations are passed
-    */
-    _handleDonate() {
-        if (this.$.userForm.validate()) {
-            let userObj = { name: this.$.userName.value, email: this.$.userEmail.value, phoneNumber: parseInt(this.$.contactNumber.value), panNumber: this.$.panCard.value }
-            console.log(userObj);
-            this._makeAjax('http://10.117.189.106:9090/givetohand/donations', 'post', userObj);
         }
     }
 
-
-    _schemeDataChanged(newVal) {
-        this.schemeObj = newVal;
+    _handleChart(event) {
+        console.log(event.point.options);
+        this.schemeDetail = event.point.options;
+        this.action = 'table'
+        this._makeAjax(`http://10.117.189.181:9090/givetohand/schemes/${this.schemeDetail.schemeId}`, 'get', null);
+        this.$.chartDialog.open();
     }
 
+    connectedCallback() {
+        super.connectedCallback();
+        this.action = 'chart'
+        this._makeAjax('http://10.117.189.181:9090/givetohand/schemes/chart', 'get', null);
+    }
 
-    /**
-    * @param {String} url 
-    * @param {String} method 
-    * @param {Object} postObj 
-    */
+    _handleRefreshAdmin() {
+        console.log(sessionStorage.getItem('userId'));
+        console.log(sessionStorage.getItem('userName'));
+        this.action = 'chart'
+        this._makeAjax('http://10.117.189.181:9090/givetohand/schemes/chart', 'get', null);
+    }
+
+    _handleResponse(event) {
+        switch (this.action) {
+            case 'chart':
+                this.schemeData = event.detail.response.schemes;
+                break;
+            case 'table':
+                this.schemeTable = event.detail.response.donors;
+                break;
+        }
+    }
+
+    _handleLogout() {
+        sessionStorage.clear();
+        window.history.pushState({}, null, '#/login');
+        window.dispatchEvent(new CustomEvent('location-changed'));
+    }
+
     _makeAjax(url, method, postObj) {
         let ajax = this.$.ajax;
         ajax.url = url;

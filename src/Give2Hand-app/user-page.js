@@ -122,7 +122,7 @@ class UserPage extends PolymerElement {
     */
     _handleDonate() {
         if (this.$.userForm.validate()) {
-            let userObj = { name: this.$.userName.value, email: this.$.userEmail.value, phoneNumber: parseInt(this.$.contactNumber.value), panNumber: this.$.panCard.value }
+            let userObj = { name: this.$.userName.value, email: this.$.userEmail.value, phoneNumber: parseInt(this.$.contactNumber.value), panNumber: this.$.panCard.value}
             console.log(userObj);
             this._makeAjax('http://10.117.189.106:9090/givetohand/donations', 'post', userObj);
         }

@@ -96,7 +96,7 @@ class HomePage extends PolymerElement {
 
     connectedCallback(){
         super.connectedCallback();
-        this._makeAjaxCall(`${mockUrl}/schemes`,'get',null);
+        this._makeAjaxCall(`http://10.117.189.181:9090/givetohand/schemes`,'get',null);
     }
 
     _handleLoginButton(){

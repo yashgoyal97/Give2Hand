@@ -123,10 +123,11 @@ class LoginPage extends PolymerElement {
                  * if the successful response is returned
                  */
                 if (this.loggedInUser.statusCode === 200) {
-                    sessionStorage.setItem('doctorId', this.loggedInUser.userId);
-                    sessionStorage.setItem('doctorName', this.loggedInUser.name);
-                    this.dispatchEvent(new CustomEvent('refresh-dashboard', { detail: {}, bubbles: true, composed: true }));
-                    this.$.toast2.open();
+                    sessionStorage.setItem('userId', this.loggedInUser.userId);
+                    sessionStorage.setItem('userName', this.loggedInUser.name);
+                    this.dispatchEvent(new CustomEvent('refresh-admin', { detail: {}, bubbles: true, composed: true }));
+                    window.history.pushState({}, null, '#/admin');
+                    window.dispatchEvent(new CustomEvent('location-changed'));
                 }
 
                 /**
