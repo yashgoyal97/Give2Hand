@@ -2,7 +2,7 @@
 {
   "npm": true,
   "entrypoint": "index.html",
-  "shell": "src/Give2Hand-app/Give2Hand-app.js",
+  "shell": "src/Give2Hand-app/donation-app.js",
   "sources": [
     "src/**/*",
     "manifest/**",

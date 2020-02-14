@@ -38,17 +38,9 @@ class HomePage extends PolymerElement {
             display:flex;
             flex-direction:column;
         }
-        #schemes{
-            display:flex;
-            flex-direction:row;
-            flex-wrap:wrap;
-            margin:20px 60px 20px 60px;
-        }
-        paper-card{
-            background-image:url('../../images/cardImage.jfif');
-            height:200px;
-            width:200px;
-            border-radius:5px;
+        #schemeDetails{
+            // display:none;
+            padding:20px;
         }
         footer{
             grid-area:footer;
@@ -60,15 +52,12 @@ class HomePage extends PolymerElement {
                 <div id="logo"><h2>Give2Hand<iron-icon icon="all-out"></iron-icon></h2></div>
             </header>
             <main>
-                <div id='schemes'>
-                    <template is="dom-repeat" items="{{schemes}}">
-                        <paper-card>
-                            <paper-button on-click="_handleViewSchemeDetails">{{item.schemeName}}</paper-button>
-                        </paper-card>
-                    </template>
-                    <paper-card>
-                        <paper-button on-click="_handleViewSchemeDetails">CLOTHES</paper-button>
-                    </paper-card>
+                <div id='schemeDetails'>
+                    <paper-input name='schemeName' id='schemeName' label="Scheme Name" readonly></paper-input>
+                    <paper-input name='schemeDescription' id='schemeDescription' label="Scheme Description" readonly></paper-input>
+                    <paper-input name='schemeAmount' id='schemeAmount' label="Amount" readonly></paper-input>
+                    <paper-input name='taxBenefit' id='taxBenefit' label="Tax Benefit" readonly></paper-input>
+                    <paper-button id="selectSchemeBtn" on-click="_handleContinue" raised>Continue</paper-button>
                 </div>
             </main>
             <footer>Footer</footer>
@@ -88,11 +77,12 @@ class HomePage extends PolymerElement {
 
     connectedCallback(){
         super.connectedCallback();
+        this.action='schemes'
         this._makeAjaxCall(`${baseUrl}/givetwohand/schemes`,'get',null);
     }
 
-    _handleResponse(event){
-        this.schemes=event.detail.response;
+    _handleContinue(){
+
     }
 
     /**
@@ -101,24 +91,7 @@ class HomePage extends PolymerElement {
      */
     _handleViewSchemeDetails(event){
         this.selectedScheme=event.model.item;
-        this.dispatchEvent(new CustomEvent('display-scheme',{detail:{item:this.selectedScheme},bubbles:true,composed:true}));
     }
-
-    /**
-     * reusable function to make ajax calls
-     * @param {String} url 
-     * @param {String} method 
-     * @param {Object} postObj 
-     */
-    _makeAjaxCall(url, method, postObj) {
-        let ajax = this.$.ajax;
-        ajax.url=url;
-        ajax.method=method;
-        ajax.body=postObj?JSON.stringify(postObj):undefined;
-        ajax.generateRequest();
-    }
-
-
 }
 
 window.customElements.define('home-page', HomePage);
