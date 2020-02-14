@@ -73,6 +73,7 @@ class Give2HandApp extends PolymerElement {
     this.addEventListener('send-scheme',function(event){
       this.schemeData=event.detail.item;
       console.log(this.schemeData,"scheme page");
+
     });
   }
 

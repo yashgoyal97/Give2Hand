@@ -95,7 +95,7 @@ class SchemePage extends PolymerElement {
                 </div>
             </main>
         </div>
-        <paper-toast id="toast1" text="Amount should be greater"></paper-toast>
+        <paper-toast id="toast1" text="Amount should be greater than {{schemeObj.amount}}"></paper-toast>
         <iron-ajax id="ajax" handle-as="json" content-type="application/json" on-response="_handleresponse" on-error="_handleError"></iron-ajax>
     `;
     }
@@ -148,7 +148,7 @@ class SchemePage extends PolymerElement {
     }
 
     _handleContinue() {
-        let schemeData = { schemeName: this.$.schemeName.value, schemeDescription: this.$.schemeDescription.value, amount: parseInt(this.$.schemeAmount.value), taxBenefit: parseInt(this.$.taxBenefit.value) };
+        let schemeData = { schemeName: this.schemeObj.schemeName, schemeDescription: this.schemeObj.description.value, amount: parseInt(this.$.schemeAmount.value), taxBenefit: parseInt(this.$.taxBenefit.value) };
         this.dispatchEvent(new CustomEvent('send-scheme', { detail: { item: schemeData }, bubbles: true, composed: true }));
     }
 
