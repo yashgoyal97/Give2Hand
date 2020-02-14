@@ -112,6 +112,10 @@ class UserPage extends PolymerElement {
                 type: Object,
                 value: this.schemeData,
                 observer: "_schemeDataChanged"
+            },
+            schemeObj: {
+                type: Object,
+                value: {}
             }
         };
     }
@@ -122,9 +126,15 @@ class UserPage extends PolymerElement {
     */
     _handleDonate() {
         if (this.$.userForm.validate()) {
-            let userObj = { name: this.$.userName.value, email: this.$.userEmail.value, phoneNumber: parseInt(this.$.contactNumber.value), panNumber: this.$.panCard.value}
-            console.log(userObj);
+            let userObj = { name: this.$.userName.value, email: this.$.userEmail.value, phoneNumber: parseInt(this.$.contactNumber.value), panNumber: this.$.panCard.value, schemeId: this.schemeObj.schemeId };
             this._makeAjax('http://10.117.189.106:9090/givetohand/donations', 'post', userObj);
+        }
+    }
+
+    _handleResponse(event) {
+        if (event.detail.response.statusCode === 200) {
+            window.history.pushState({}, null, '#/home');
+            window.dispatchEvent(new CustomEvent('location-changed'));
         }
     }
 

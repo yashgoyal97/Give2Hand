@@ -60,7 +60,7 @@ class Give2HandApp extends PolymerElement {
   */
   _routePageChanged(page) {
     if (!page) {
-      this.page = 'admin';
+      this.page = 'home';
     } else if (['home', 'scheme', 'user', 'login','admin'].indexOf(page) !== -1) {
       this.page = page;
     } else {

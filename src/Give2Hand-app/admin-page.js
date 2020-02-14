@@ -57,7 +57,7 @@ class AdminPage extends PolymerElement {
         <paper-button id="goToHomeBtn" on-click="_handleLogout">LOGOUT<iron-icon icon='settings-power'></iron-icon></paper-button>
     </header>
     <main>
-        <highcharts-chart type="pie" data="{{schemeData}}" on-click="_handleChart"></highcharts-chart>
+        <highcharts-chart type="pie" data="{{schemeData}}" color-by-point=true on-click="_handleChart" title="Scheme Statistics"></highcharts-chart>
         <paper-dialog id='chartDialog'>
             <table>
                 <thead>
@@ -152,6 +152,7 @@ class AdminPage extends PolymerElement {
         switch (this.action) {
             case 'chart':
                 this.schemeData = event.detail.response.schemes;
+                console.log(this.schemeData);
                 break;
             case 'table':
                 this.schemeTable = event.detail.response.donors;

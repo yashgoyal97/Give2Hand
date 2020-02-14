@@ -15,7 +15,6 @@ class LoginPage extends PolymerElement {
 
             <style>
             :host{
-                 background-color:whitesmoke; 
                 display:block;
                 overflow-y:hidden;
             }
@@ -48,7 +47,7 @@ class LoginPage extends PolymerElement {
                 margin: 0;
                 color:white;
                 width: 100%;
-                background-color: rgba(0,50,255,0.6);
+                background-color: rgba(0,50,255,0.2);
             }
            
             </style>
