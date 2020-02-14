@@ -33,6 +33,9 @@ class UserPage extends PolymerElement {
         grid-template-areas:"empty logo homepage";
         padding:5px;
     }
+    #body{
+        background-color:rgba(255,255,255,0.9)
+    }
     #logo{
         grid-area: logo;
     }
@@ -62,6 +65,8 @@ class UserPage extends PolymerElement {
         width:50%;
     }
     paper-button{
+        background-color:rgba(0,50,255,0.6);
+        color:white;
         margin:10px;
     }
 </style>
@@ -89,7 +94,7 @@ class UserPage extends PolymerElement {
                         <paper-input type="email" required id="userEmail" label="Email Id" required></paper-input>
                         <paper-input label="Phone Number" allowed-pattern=[0-9] required id="contactNumber" minlength=10 maxlength=10></paper-input>
                         <paper-input label="PAN Number" required id="panCard" minlength=10 maxlength=10 ></paper-input>
-                        <gold-cc-input label="Enter Card Details" name="cardNumber" id="cardNumber"></gold-cc-input>
+                        <gold-cc-input label="Enter Card Details" name="cardNumber" id="cardNumber"  auto-validate error-message="Enter valid visa or mastercard!" card-types='["visa", "mastercard"]' required></gold-cc-input>
                         <paper-input label="CVV" id="cvv" allowed-pattern="[0-9]" minlength=3 maxlength=3></paper-input>
                         <paper-input label="Expiry Date" id="expiryDate" type=date ></paper-input>
                         <paper-button on-click="_handleDonate" raised>Make Payment</paper-button>
@@ -126,8 +131,9 @@ class UserPage extends PolymerElement {
     */
     _handleDonate() {
         if (this.$.userForm.validate()) {
-            let userObj = { name: this.$.userName.value, email: this.$.userEmail.value, phoneNumber: parseInt(this.$.contactNumber.value), panNumber: this.$.panCard.value, schemeId: this.schemeObj.schemeId };
-            this._makeAjax('http://10.117.189.106:9090/givetohand/donations', 'post', userObj);
+            let userObj = { name: this.$.userName.value, email: this.$.userEmail.value, phoneNumber: parseInt(this.$.contactNumber.value), panNumber: this.$.panCard.value, schemeId: this.schemeObj.schemeId,paymentType:"CREDIT" };
+            console.log(userObj);
+            this._makeAjax('http://10.117.189.181:9090/givetohand/donations', 'post', userObj);
         }
     }
 
@@ -145,6 +151,7 @@ class UserPage extends PolymerElement {
 
 
     _schemeDataChanged(newVal) {
+        console.log(newVal,"yashgoyal")
         this.schemeObj = newVal;
     }
 

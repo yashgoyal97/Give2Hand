@@ -59,7 +59,7 @@ class SchemePage extends PolymerElement {
         #schemeData{
             grid-area:data;
             padding:20px;
-            background-color:rgba(0,0,0,0.1);
+            background-color:rgba(255,255,255,0.9);
             border-radius:5px;
         }
         #goToHomeBtn{
@@ -150,7 +150,7 @@ class SchemePage extends PolymerElement {
 
     _handleContinue() {
         if (this.$.schemeAmount.value >= this.schemeObj.amount) {
-            let schemeData = { schemeName: this.schemeObj.schemeName, description: this.schemeObj.description, amount: parseInt(this.$.schemeAmount.value), taxBenefit: parseInt(this.$.taxBenefit.value) };
+            let schemeData = { schemeName: this.schemeObj.schemeName, description: this.schemeObj.description, amount: parseInt(this.$.schemeAmount.value),schemeId:this.schemeObj.schemeId, taxBenefit: parseInt(this.$.taxBenefit.value) };
             this.dispatchEvent(new CustomEvent('send-scheme', { detail: { item: schemeData }, bubbles: true, composed: true }));
             window.history.pushState({}, null, '#/user');
             window.dispatchEvent(new CustomEvent('location-changed'));
