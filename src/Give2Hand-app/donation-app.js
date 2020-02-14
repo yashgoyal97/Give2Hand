@@ -46,7 +46,6 @@ class Give2HandApp extends PolymerElement {
    * @param {String} page 
    */
   _routePageChanged(page) {
-    console.log(page)
     if (!page) {
       this.page = 'home';
     } else if (['home'].indexOf(page) !== -1) {
@@ -61,7 +60,6 @@ class Give2HandApp extends PolymerElement {
    * @param {String} page 
    */
   _pageChanged(page) {
-    console.log(page)
     switch (page) {
       case 'home':
         import('./home-page.js');
@@ -73,4 +71,4 @@ class Give2HandApp extends PolymerElement {
   }
 }
 
-window.customElements.define('Give2Hand-app', Give2HandApp);
+window.customElements.define('donation-app', Give2HandApp);
