@@ -1,0 +1,7 @@
+{
+  "name": "Give2Hand",
+  "short_name": "Give2Hand",
+  "description": "Donation Application",
+  "start_url": "/",
+  "display": "standalone"
+}
