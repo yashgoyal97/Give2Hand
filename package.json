@@ -8,6 +8,7 @@
     "@polymer/gold-cc-input": "^3.0.1",
     "@polymer/iron-ajax": "^3.0.1",
     "@polymer/iron-form": "^3.0.1",
+    "@polymer/iron-icons": "^3.0.1",
     "@polymer/iron-pages": "^3.0.1",
     "@polymer/paper-button": "^3.0.1",
     "@polymer/paper-card": "^3.0.1",
