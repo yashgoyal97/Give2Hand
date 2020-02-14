@@ -50,6 +50,11 @@ class AdminPage extends PolymerElement {
     td{
         padding:10px;
     }
+    paper-dialog{
+        background-color:rgba(0,0,0,0.6);
+        color:white;
+
+    }
 </style>
 <div class="container">
     <header>
@@ -64,7 +69,6 @@ class AdminPage extends PolymerElement {
                     <tr>
                         <td>Name</td>
                         <td>Phone</td>
-                        <td>Email</td>
                         <td>PAN</td>
                         <td>Tax Benefit</td>
                         <td>Payment Type</td>
@@ -76,9 +80,9 @@ class AdminPage extends PolymerElement {
                         <tr>
                             <td>{{item.userName}}</td>
                             <td>{{item.phoneNumber}}</td>
-                            <td>{{item.mailAddress}}</td>
                             <td>{{item.panNumber}}</td>
-                            <td>{{item.taxBenfit}}</td>
+                            <td>{{item.taxBenefit}}</td>
+                            <td>{{item.paymentType}}</td>
                             <td>{{item.amount}}</td>
                         </tr>
                     </template>
